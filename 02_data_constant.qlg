@@ -1,0 +1,18 @@
+
+% In QuLog, data constants are atoms (atom type), natural numbers (nat type), integers (int type), floats (num type) and strings (string type).
+
+% Atoms
+percy_smith_2
+!+><@
+`append
+'hi'
+
+
+% Numbers
+111
+16'A
+1.877e2
+
+
+% Strings
+"Hello" ++ " " ++ "string".
