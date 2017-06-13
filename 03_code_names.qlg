@@ -1,0 +1,9 @@
+
+% Syntactically, these are the same as the first two forms of atom - alphanumeric and graphic, 
+% but they are the names of primitive or program-defined relations, functions or actions. 
+% Hence they are not prepended by a backquote. To use them as atoms, they would need a backquote.
+
+% Examples
+
+<>
+append
