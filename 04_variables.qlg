@@ -1,0 +1,12 @@
+
+% Examples
+
+List_nums Tail
+_Dictionary _X_2
+_
+
+% "_" alone denotes an anonymous variable.
+
+% Varibales beginning with an underscore should be used when there is only a single occurence
+of that variable in a rule. It suppresses the warning which would otherwise be given.
+
