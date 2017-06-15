@@ -1,0 +1,8 @@
+
+% A function call is either a simple compound term where the functor is the name of a primitive 
+% or program defined function, or it is a non-simple compound term where the compound term that
+% denotes the functor is a function call that returns a function value.
+
+67.7/2.3.
+
+P ? Rel=curryR(child_of)(peter) & Rel(P). 
