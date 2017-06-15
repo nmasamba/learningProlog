@@ -1,0 +1,15 @@
+
+
+% A simple compound term is composed of an atom immediately followed by a sequence of zero or 
+% more expressions separated by commas, enclosed in a pair of parentheses. The atom is then
+% called a functor,
+
+data(iani, 29).
+tr(emp(), X/9, tr(L, 7, 12)).
+
+
+% A compound term is a simple compound term immediately followed by a sequence of zero or more 
+% compound terms enclosed in a pair of parentheses.
+
+curry(*)(8).
+curryR(child_of)(dhikondo)(P).
