@@ -1,0 +1,7 @@
+
+% A list is a comma separated sequence of expressions enclosed in [ ] brackets. This is a complete list.
+
+[3, 2.7, X*Y, "hello"].
+[Head,..Tail].
+[Head,..].
+[Head|Tail].
