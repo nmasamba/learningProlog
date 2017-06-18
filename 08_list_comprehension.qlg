@@ -1,0 +1,9 @@
+
+% Lists of ground terms can also be denoted by a list comprehension expression. The general form is
+% [Expression :: exists VarSequence SimpleConj] where VarSequence is optional.
+
+% Squares of numbers other than 0,1 in nums list L
+[X**2::X in L & not X in [0,1]].
+
+% Non-adult children of peter in order found
+[C::exists A child_of(C,peter) & age_of(C,A) & A<18].
