@@ -1,0 +1,10 @@
+
+% Sets can be denoted by a set comprehension expression. The general form is
+% {Expression :: exists VarSequence SimpleConjunction} where exists VarSequence is optional.
+
+
+% Squares of numbers other than 0,1 in L, duplicates removed.
+{X**2::X in L & not X in [0,1]}.
+
+% Set of all ages of recorded children of peter under 18
+{A::exists C, P child_of(C,P) & age_of(C,A) & A<18}.
