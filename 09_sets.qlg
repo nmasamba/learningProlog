@@ -1,0 +1,7 @@
+
+% A set is a comma separated sequence of ground expressions surrounded with { } braces. 
+
+% If there are any duplicate ground terms when all the expressions have been evaluated all but
+% one of the duplicates will be removed.
+
+{4, 3, 1, 5-2, 1}. evaluates to {1, 3, 4}:{nat} 
