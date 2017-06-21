@@ -1,0 +1,26 @@
+% All functions, relations, actions and TeleoR programs have type declarations of the form
+% Name : Type
+
+% Example
+
+?? append([1,2], [a,b], X). means that X = [1, 2, a, b]:[atom || nat] on exit from the call.
+
+
+% Beliefs are dynamic relations and are declared as follows
+
+belief Name1 : ArgType1, ArgType2, ... , ArgTypeN.
+belief age_of: (human, age).
+% where each ArgType is any simple or compound type name, or type union, or a code type expression.
+
+% Percepts are similar to beliefs in that they are dynamic but are specifically used for storing 
+% percepts in TeleoR programs. They are declared as follows
+
+percept Name1 : ArgType1, ... , ArgTypeN.
+
+% Global variables are used to store either integer or number values and are declared as follows
+
+int Name := IntValue. or num Name := NumValue.
+
+% Hence the declaration  int count := 0 is similar to a combination of 
+% the declaration belief count : int and the definition count(0)
+% with the restriction the count belief will always contain exactly one fact.
