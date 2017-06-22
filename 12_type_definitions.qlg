@@ -1,0 +1,42 @@
+
+% A type definition is of the form
+
+type-name :: = type-expression
+
+% Example type definitions
+
+%Integer type expressions
+speed ::= num
+digit ::= 0 .. 9
+small_int ::= -10 .. 10
+
+%Disjunction of constants
+gender ::= male | female
+threeNums ::= 20 | 6.7 | -50
+article ::= "a" | "that" | "this"
+
+%Parameterised type expression
+tree(T) ::= empty() | tr(tree(T), T, tree(T))
+
+%Type union expression
+int_atom ::= int || atom
+int2intOrstring ::= int -> int || int -> string
+
+%Function type expression
+(TE1, TE2, ..., TEk) -> TE
+
+%Relation type expression
+(MTE1, MTE2, ..., MTEk) <= MTE where each MTEi is a moded type where the type is any type expression.
+
+% The possible modes of a moded type are the prefixes !,? and ?? and the postfix ?.
+!Type means when called, the supplied argument must be ground.
+?Type means the supplied argument must either be ground OR will be ground by the call.
+Type? means the supplied argument must either be ground OR if ground by the call, will be of term Type.
+??Type means the supplied argument, if ground, must be of type Type and the call will not further instantiate the argument.
+
+%Action type expression
+(MTE1, MTE2, ..., MTEk) ~>> MTE.
+
+%TeleoR type expression
+(TE1, TE2, ..., TEk) ~> TE.
+
