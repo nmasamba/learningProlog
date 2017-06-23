@@ -1,0 +1,18 @@
+
+% All functions, actions and TeleoR programs have type declarations of the form
+Name : Type
+
+
+% Beliefs are dynamic relations 
+belief Name1: ArgTypes1, ..., NameN: ArgTypesN
+% where each ArgTypes is of the form (TE1, TE2, ..., TEk)
+
+
+% Percepts are similar to percepts in that they are dynamic
+% but they are specificaly used to store percepts in TeleoR programs
+percept Name1: ArgTypes1, ..., NameN: ArgTypesN
+
+
+% Global variables are used to store either integer or number values and are declared as follows
+int Name := IntValue or num Name := NumValue
+
