@@ -1,0 +1,25 @@
+
+% A relation definition consists of a sequence of rules (clauses) of the form
+
+Head :: Commit <= Body
+
+% where Head is an atom or simple compound term, Commit is a conjunct of goals, and Body is a 
+% conjunct of goals. Conjuncts are separated by &. Both the ::Commit and <= Body parts of the 
+% rule are optional. The heads of each rule of a relation have the same functor and arity.
+
+% When a goal, Goal, with the same functor and arity as Head is called, the rules of the 
+% relation are tried in order. If Goal unifies with the head of the rule then the Commit part is 
+% called. If that succeeds then this rule is commited to (i.e. no subsequent rules are tried
+% on backtracking. If Commit is not present then Goal succeeds if Body succeeds but, on 
+% backtracking, subsequent rules will be tried.
+
+
+% Examples of greater and sum_list relations
+  
+greater: (!num, !num, ?num) <=
+	greater(A, B, C) :: A > B <= C = A
+	greater(A, B, C) :: B > A <= C = B
+
+sum_list: (![num], ?num) <=
+	sum_list([], 0)
+	sum_list([H, ..., T], N) <= sum_list(T, M) & N = H+M
