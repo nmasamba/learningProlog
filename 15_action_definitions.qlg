@@ -1,0 +1,24 @@
+
+% An action definition consists of a sequence of rules of the form
+
+Head :: Commit ~>> Body
+
+% where the semantics of action definitions is the same for relation definitions, except for
+% Body which is a sequence of goals and actions. The difference is that at least one of the
+% elements of the Body sequence is an action which typically has a side effect such as 
+% writing, reading, sending a message or updating the database. Body is a sequence of goals 
+% and actions separated by ; symbol.
+
+% Example definitions of ask_query and handle_response actions
+
+ask_query: (atom, term?, [term?], handle)
+ask_query(QId, Ans, QList, Ag) ~>>
+	ask(QId, Ans, QList) to Ag;
+	Reply from Ag;
+	handle_response(QId, Ag, Reply, Ans)
+
+handle_response: (atom, handle, term?, term?)
+handle_response(QId, _, tell(QId,ans(Ans)), Ans) :: true
+handle_response(QId, Ag, tell(QId, Reply), _) ~>>
+	writeLine(['Agent ',Ag,' responded ',Reply,' to query ',QId]); 
+	fail
