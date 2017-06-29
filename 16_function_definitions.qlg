@@ -1,0 +1,19 @@
+% A function definition consists of a sequence of rules of the form
+
+Head :: Commit -> Expression
+
+% where Head is an atom or simple compound term, Commit is a conjunct of goals, and Expression is a term.
+% The ::Commit part of the rule is optional. When the function is called, the rules are tried and
+% the first rule whose Head unifies with the function call and where Commit is true then the result
+% returned is the evaluation of Expression. Note that rules without an explicit Commit have an
+% implicit true commit and so no backtracking occurs.
+
+% Example definitions of factorial and tree2list functions
+
+factorial : nat -> nat
+	factorial(0) -> 1
+	factorial(N) :: N1 = N-1 & type(N1,nat) -> N*factorial(N1)
+
+tree2list : tree(T) -> [T]
+	tree2list(empty()) -> []
+	tree2list(tr(LT, V, RT)) -> tree2list(LT) <> [V] <> tree2list(RT)
