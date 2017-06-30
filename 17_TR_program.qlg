@@ -1,0 +1,15 @@
+
+% A TR-program definition has the form
+
+Head {
+
+	TR Rule
+	...
+	TR Rule
+     }
+
+% where Head is an atom or simple compound term and each TR Rule has the form
+
+Guard ~> TR Action
+
+% where Guard is a conjunct of goals and TR Action is an action definition.
