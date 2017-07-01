@@ -1,0 +1,37 @@
+%% We assume that if the program receives a dead_centre percept
+%% it will also receive a centre percept
+dir::= left | right | centre | dead_centre
+
+percept 
+            see : (num, dir),
+            holding : ()
+ 
+durative 
+            move : (num), 
+            turn : (dir)
+ 
+discrete     
+            grab : (),
+            release : ()
+ 
+%% We interpret holding true and see(0, centre) not true to mean that
+%% the grippers are closed but not actually holding an object
+ 
+get_object : () ~>
+get_object {
+      holding & see(0, centre)       ~> ()
+      not holding  & see(0, centre)  ~> grab wait 10^2
+      not holding                    ~> get_to
+      true                           ~> release wait 10^2
+}
+ 
+get_to : () ~>
+get_to {
+      see(0, centre)    ~> ()
+      see(0, Dir)       ~> turn(Dir)
+      see(_, centre)    ~> move(6)
+      see(_, Dir) while see(_, centre) until see(_, dead_centre) 
+                                    ~> move(4) , turn(Dir)
+      true              ~> turn(left) for 10 ; move(4) for 10
+}
+
