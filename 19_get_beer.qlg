@@ -1,4 +1,29 @@
 % Robot assistant gets beer for human and orders beer from supermarket when fridge empty
 % Converted from Jason programming language examples
 
+agent::= owner | robot | supermarket
+thing::= beer
+
+percept
+        has: (thing),
+        drink: (thing),
+        see: (agent)
+
+belief
+        bored: ()
+
+check_bored: ()
+check_bored::true
+check_bored~>>
+        writeLine('Owner bored.'); fail
+
+get_beer: pedro_handle
+get_beer(robot){
+    has(beer)   ~> ()
+    see(robot)  ~> sendMsg('Fetch beer', robot)
+    true ~> drink(beer); wait 2^3
+   }
+
+goal: ?thing
+goal(beer) <= get_beer
 
