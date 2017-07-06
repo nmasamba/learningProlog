@@ -4,11 +4,13 @@
 agent::= owner | robot | supermarket
 thing::= beer
 
+% dynamic percepts
 percept
         has: (thing),
         drink: (thing),
         see: (agent)
 
+% beliefs also dynamic
 belief
         bored: ()
 
@@ -27,3 +29,5 @@ get_beer(robot){
 goal: ?thing
 goal(beer) <= get_beer
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Env
