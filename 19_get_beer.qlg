@@ -1,33 +1,64 @@
 % Robot assistant gets beer for human and orders beer from supermarket when fridge empty
 % Converted from Jason programming language examples
 
-agent::= owner | robot | supermarket
+
+agent::= owner | robot
 thing::= beer
 
-% dynamic percepts
+%OthrAg is currently robot
+
 percept
         has: (thing),
         drink: (thing),
         see: (agent)
 
-% beliefs also dynamic
 belief
         bored: ()
 
-check_bored: ()
-check_bored::true
-check_bored~>>
-        writeLine('Owner bored.'); fail
+int max:=10
+int already_drank:=0
+int num_to_get:=0
+
+get_belief : ?term
+get_belief(max(N)) <= N = $max
+get_belief(already_drank(N)) <= N = $already_drank
+get_belief(num_to_get(N)) <= N = $num_to_get
+
+
+%check_bored: ()
+%check_bored::true
+%check_bored~>>
+        %writeLine('Owner bored.'); fail
 
 get_beer: pedro_handle
 get_beer(robot){
     has(beer)   ~> ()
+    %check bored
     see(robot)  ~> sendMsg('Fetch beer', robot)
     true ~> drink(beer); wait 2^3
    }
 
-goal: ?thing
-goal(beer) <= get_beer
+communicating_get_beer: (int,pedro_handle)
+communicating_get_beer($num_to_get,robot){
+   simulation_stopped ~> ()
+   $num_to_get + $already_drank >= $max ~> ()
+   has(beer) & goal(beer) ~> drink(beer)
+   true ~> get_beer(robot)
+   }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%% Env
+update_and_communicate_count: pedro_handle
+update_and_communicate_count(robot) ~>>
+                         already_drank +:= num_to_get;
+                         count($already_drank) to robot
+
+goal: ?thing
+goal(beer) <= communicating_get_beer: (1,robot)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Environment
+
+go : (int, atom, atom)
+go(Num, robot, human) ~>>
+	 start_agent human env@localhost user ;
+	 start_task beer_robot
+	       communicating_collect_bottles(Num, messages:OtherName@localhost)
