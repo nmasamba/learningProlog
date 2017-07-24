@@ -31,15 +31,15 @@ get_belief(num_to_get(N)) <= N = $num_to_get
         %writeLine('Owner bored.'); fail
 
 get_beer: pedro_handle
-get_beer(robot){
+get_beer(Robot){
     has(beer)   ~> ()
     %check bored
-    see(robot)  ~> sendMsg('Fetch beer', robot)
+    see(Robot)  ~> sendMsg('Fetch beer', robot)
     true ~> drink(beer); wait 2^3
    }
 
 communicating_get_beer: (int,pedro_handle)
-communicating_get_beer($num_to_get,robot){
+communicating_get_beer($num_to_get, Robot){
    simulation_stopped ~> ()
    $num_to_get + $already_drank >= $max ~> ()
    has(beer) & goal(beer) ~> drink(beer)
@@ -47,12 +47,12 @@ communicating_get_beer($num_to_get,robot){
    }
 
 update_and_communicate_count: pedro_handle
-update_and_communicate_count(robot) ~>>
+update_and_communicate_count(Robot) ~>>
                          already_drank +:= num_to_get;
                          count($already_drank) to robot
 
 goal: ?thing
-goal(beer) <= communicating_get_beer: (1,robot)
+goal(beer) <= communicating_get_beer: (1,Robot)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% Environment
