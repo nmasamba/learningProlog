@@ -2,63 +2,9 @@
 % Converted from Jason programming language examples
 
 
-agent::= owner | robot
-thing::= beer
 
-%OthrAg is currently robot
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-percept
-        has: (thing),
-        drink: (thing),
-        see: (agent)
+REFER TO beer_robot repository for implementation.
 
-belief
-        bored: ()
-
-int max:=10
-int already_drank:=0
-int num_to_get:=0
-
-get_belief : ?term
-get_belief(max(N)) <= N = $max
-get_belief(already_drank(N)) <= N = $already_drank
-get_belief(num_to_get(N)) <= N = $num_to_get
-
-
-%check_bored: ()
-%check_bored::true
-%check_bored~>>
-        %writeLine('Owner bored.'); fail
-
-get_beer: pedro_handle
-get_beer(Robot){
-    has(beer)   ~> ()
-    %check bored
-    see(Robot)  ~> sendMsg('Fetch beer', robot)
-    true ~> drink(beer); wait 2^3
-   }
-
-communicating_get_beer: (int,pedro_handle)
-communicating_get_beer($num_to_get, Robot){
-   simulation_stopped ~> ()
-   $num_to_get + $already_drank >= $max ~> ()
-   has(beer) & goal(beer) ~> drink(beer)
-   true ~> get_beer(robot)
-   }
-
-update_and_communicate_count: pedro_handle
-update_and_communicate_count(Robot) ~>>
-                         already_drank +:= num_to_get;
-                         count($already_drank) to robot
-
-goal: ?thing
-goal(beer) <= communicating_get_beer: (1,Robot)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Environment
-
-go : (int, atom, atom)
-go(Num, robot, human) ~>>
-	 start_agent human env@localhost user ;
-	 start_task beer_robot
-	       communicating_collect_bottles(Num, messages:OtherName@localhost)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
